@@ -15,6 +15,10 @@ export default class UpdateProduct extends Component {
         category: ''
     }
 
+    handleSubmit = (e) => {
+        this.setState({isFormloading: true});
+    }
+
     componentDidMount(){
         axios.get(`http://127.0.0.1:8000/api/products/${this.props.match.params.product}`)
         .then((response) => {console.log(response); this.setState({name: response.data.name, price: response.data.price, category: response.data.category_id});})
@@ -24,7 +28,7 @@ export default class UpdateProduct extends Component {
     render() {
         return (
             <CenteredGridLayout title="Edit Product">
-                <Form loading={this.state.isFormloading}>
+                <Form loading={this.state.isFormloading} onSubmit={this.handleSubmit}>
                     <ProductName value={this.state.name} />
                     <ProductPrice value={this.state.price} />
                     <CategoryList value={this.state.category} />
