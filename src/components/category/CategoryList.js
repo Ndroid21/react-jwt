@@ -25,9 +25,10 @@ export default class CategoryList extends Component {
 
     render() {
         return (
-            <Form.Field required>
-                <label>Category</label>
-                <Select placeholder='Select Category' value={this.props.value} options={this.state.categoryList} />
+            <Form.Field label='Category' control='select' value={this.props.value} name={this.props.name} onChange={this.props.onChange}>
+                { this.state.categoryList.map(category => {
+                    return <option key={category.value} value={category.value}>{category.text}</option>
+                }) }
             </Form.Field>
         )
     }

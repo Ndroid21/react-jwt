@@ -5,7 +5,7 @@ export default function ProductName(props) {
     return (
       <Form.Field required>
         <label>Name</label>
-        <Input type="text" value={props.value} placeholder="Product Name" />
+        <Input type="text" value={props.value} placeholder="Product Name" onChange={props.onChange} name={props.name} />
       </Form.Field>
     );
 }
