@@ -11,7 +11,7 @@ export default class StoreProduct extends Component {
         isFormloading: false,
         name: '',
         price: '',
-        category: ''
+        category: '1'
     }
 
     handleSubmit = () => {
@@ -28,9 +28,12 @@ export default class StoreProduct extends Component {
     }
 
     handleChange = (e) => {
+        // console.log(e.target.name, e.target.value);
         this.setState({
             [e.target.name]: e.target.value
         });
+
+        console.log(this.state.category);
     } 
 
     render() {
