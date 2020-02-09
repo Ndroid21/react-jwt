@@ -13,13 +13,14 @@ export default class ProductList extends Component {
 
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/products')
-            .then((response) => { console.log(response); this.setState({ products: response.data }); })
+            .then((response) => { this.setState({ products: response.data }); })
             .catch((error) => console.log(error));
     }
 
     render() {
         return (
             <CenteredGridLayout title="Products List">
+                <Link to="/products/add" className="ui right floated compact primary button">Add New Product</Link>
                 <Table singleLine>
                     <Table.Header>
                         <Table.Row>
