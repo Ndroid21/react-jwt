@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import history from '../../helpers/history';
+// import history from '../../helpers/history';
 
 export default class Header extends Component {
     state = {
@@ -10,13 +10,8 @@ export default class Header extends Component {
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
-    handleLogout = () => {
-        localStorage.removeItem('auth_token');
-        history.push('/');
-    }
-
     renderMenuItems(activeItem) {
-        const isLoggedIn = this.props;
+        const { isLoggedIn } = this.props;
 
         if (isLoggedIn){
             return (
@@ -31,7 +26,7 @@ export default class Header extends Component {
                         All Products
                     </Menu.Item>
                     <Menu.Item
-                        onClick={this.handleLogout}
+                        onClick={this.props.handleLogout}
                     >
                         Logout
                     </Menu.Item>

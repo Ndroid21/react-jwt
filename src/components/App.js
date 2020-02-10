@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import history from '../helpers/history';
 import Header from './commons/Header';
 import Register from './authentication/Register';
 import Login from './authentication/Login';
@@ -10,7 +9,7 @@ import ProductList from './product/ProductList';
 import { getAuthToken } from '../helpers/getAuthToken';
 
 
-export default class App extends React.Component {
+class App extends React.Component {
     state = {
         isLoggedIn: false
     }
@@ -25,10 +24,17 @@ export default class App extends React.Component {
         }
     }
 
+    handleLogout = () => {
+        localStorage.removeItem('auth_token');
+        this.setState({ isLoggedIn: false });
+        // this.props.history.push('/');
+        // console.log('logout');
+    }
+
     render() {
         return (
-            <Router history={history}>
-                <Header isLoggedIn={this.state.isLoggedIn} />
+            <Router>
+                <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout} />
                 <Switch>
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
@@ -40,3 +46,5 @@ export default class App extends React.Component {
         )
     }
 }
+
+export default App;
