@@ -24,12 +24,12 @@ class App extends React.Component {
         }
     }
 
-    handleLogout = () => {
-        localStorage.removeItem('auth_token');
-        this.setState({ isLoggedIn: false });
-        // this.props.history.push('/');
-        // console.log('logout');
-    }
+    // handleLogout = () => {
+    //     localStorage.removeItem('auth_token');
+    //     this.setState({ isLoggedIn: false });
+    //     // this.props.history.push('/');
+    //     // console.log('logout');
+    // }
 
     render() {
         return (
