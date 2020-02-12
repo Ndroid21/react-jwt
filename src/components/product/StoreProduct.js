@@ -5,6 +5,7 @@ import CenteredGridLayout from '../commons/layouts/CenteredGridLayout';
 import ProductName from './fields/ProductName';
 import ProductPrice from './fields/ProductPrice';
 import CategoryList from '../category/CategoryList';
+import { getAuthToken } from '../../helpers/getAuthToken';
 
 export default class StoreProduct extends Component {
     state = {
@@ -16,9 +17,13 @@ export default class StoreProduct extends Component {
 
     handleSubmit = () => {
         this.setState({ isFormloading: true });
+        const auth_token = getAuthToken();
         const { name, price, category } = this.state;
 
         axios.post(`http://127.0.0.1:8000/api/products`, {
+            headers: {
+                'Authorization': `Bearer ${auth_token}`
+            },
             name,
             price,
             category

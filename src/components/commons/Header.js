@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-// import history from '../../helpers/history';
+import history from '../../helpers/history';
+import { getAuthToken } from '../../helpers/getAuthToken';
 
 export default class Header extends Component {
     state = {
+        isLoggedIn: false,
         activeItem: '',
+    }
+
+    componentDidMount() {
+        const auth_token = getAuthToken();
+
+        if (auth_token) {
+            this.setState({
+                isLoggedIn: true
+            });
+        }
+    }
+
+    handleLogout = () => {
+        history.push('/');
+        localStorage.removeItem('auth_token');
+        this.setState({ isLoggedIn: false });
+        console.log('logout');
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
     renderMenuItems(activeItem) {
-        const { isLoggedIn } = this.props;
+        const { isLoggedIn } = this.state;
 
         if (isLoggedIn){
             return (
@@ -26,7 +45,7 @@ export default class Header extends Component {
                         All Products
                     </Menu.Item>
                     <Menu.Item
-                        onClick={this.props.handleLogout}
+                        onClick={this.handleLogout}
                     >
                         Logout
                     </Menu.Item>

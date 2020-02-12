@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
 import axios from 'axios';
+import { getAuthToken } from '../../helpers/getAuthToken';
 
 import CenteredGridLayout from '../commons/layouts/CenteredGridLayout';
 
@@ -12,7 +13,12 @@ export default class ProductList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/products')
+        const auth_token = getAuthToken();
+        axios.get('http://127.0.0.1:8000/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${auth_token}`
+                }
+            })
             .then((response) => { this.setState({ products: response.data }); })
             .catch((error) => console.log(error));
     }

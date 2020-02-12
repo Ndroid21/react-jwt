@@ -5,6 +5,7 @@ import CenteredGridLayout from '../commons/layouts/CenteredGridLayout';
 import ProductName from './fields/ProductName';
 import ProductPrice from './fields/ProductPrice';
 import CategoryList from '../category/CategoryList';
+import { getAuthToken } from '../../helpers/getAuthToken';
 
 
 export default class UpdateProduct extends Component {
@@ -17,9 +18,14 @@ export default class UpdateProduct extends Component {
 
     handleSubmit = () => {
         this.setState({isFormloading: true});
+        const auth_token = getAuthToken();
         const { name, price, category } = this.state;
 
         axios.put(`http://127.0.0.1:8000/api/products/${this.props.match.params.product}`, {
+            headers: {
+                'Authorization': `Bearer ${auth_token}`,
+                'Accept': 'application/json',
+            },
             name,
             price,
             category
@@ -35,7 +41,12 @@ export default class UpdateProduct extends Component {
     } 
 
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/api/products/${this.props.match.params.product}`)
+        const auth_token = getAuthToken();
+        axios.get(`http://127.0.0.1:8000/api/products/${this.props.match.params.product}`, {
+            headers: {
+                'Authorization': `Bearer ${auth_token}`
+            }
+        })
         .then((response) => { this.setState({name: response.data.name, price: response.data.price, category: response.data.category_id});})
         .catch((error) => console.log(error));
     }
